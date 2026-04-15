@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backend Engineering Roadmap — Beyond Fresher Expectations</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --surface: #ede8dc;
+    --surface2: #e4ddd0;
+    --border: #d4ccba;
+    --ink: #1a1714;
+    --ink2: #3d3730;
+    --muted: #8a7f6e;
+    --muted2: #6b6057;
+
+    --red: #c0392b;
+    --teal: #0d6e6e;
+    --amber: #b45309;
+    --blue: #1e4d8c;
+    --purple: #5b2d8e;
+    --green: #1a6b3c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* Paper grain texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.07'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px 100px;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    padding: 64px 0 48px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 60px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 32px;
+  }
+
+  .header-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5.5vw, 66px);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .header-sub {
+    margin-top: 18px;
+    font-size: 15px;
+    color: var(--muted2);
+    font-weight: 300;
+    max-width: 540px;
+    line-height: 1.75;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  .meta-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted2);
+    background: var(--surface);
+  }
+
+  /* ===== SECTION STRUCTURE ===== */
+  .chapter {
+    margin-bottom: 72px;
+  }
+
+  .chapter-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ===== PHILOSOPHY BOX ===== */
+  .philosophy {
+    background: var(--ink);
+    color: #f5f0e8;
+    padding: 32px 36px;
+    border-radius: 4px;
+    margin-bottom: 60px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .philosophy-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    font-weight: 900;
+    color: rgba(245,240,232,0.1);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .philosophy-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #f5f0e8;
+  }
+
+  .philosophy-content p {
+    font-size: 14px;
+    color: rgba(245,240,232,0.72);
+    line-height: 1.75;
+  }
+
+  .philosophy-content p strong {
+    color: #f5f0e8;
+    font-weight: 500;
+  }
+
+  /* ===== CONCEPT CARDS (main grid) ===== */
+  .concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .concept-card {
+    background: var(--surface);
+    padding: 24px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+    position: relative;
+  }
+
+  .concept-card:hover { background: var(--surface2); }
+
+  .concept-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 20px; right: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--border);
+    letter-spacing: 0.05em;
+  }
+
+  .concept-accent {
+    width: 28px; height: 3px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+
+  .concept-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .concept-desc {
+    font-size: 13px;
+    color: var(--muted2);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .concept-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .ctag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+    background: var(--bg);
+  }
+
+  /* ===== DEPTH INDICATOR ===== */
+  .depth-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .depth-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .depth-bar {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .depth-fill {
+    height: 100%;
+    border-radius: 2px;
+  }
+
+  /* ===== REALTIME SECTION ===== */
+  .rt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .rt-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+  }
+
+  .rt-block.full { grid-column: 1 / -1; }
+
+  .rt-block-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .rt-block-title .icon {
+    font-size: 18px;
+  }
+
+  .rt-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .rt-item {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 1.5;
+  }
+
+  .rt-item::before {
+    content: '—';
+    color: var(--muted);
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    margin-top: 1px;
+  }
+
+  .rt-item strong { color: var(--ink); font-weight: 600; }
+
+  /* ===== CONCURRENCY DIAGRAM ===== */
+  .thread-diagram {
+    background: var(--ink);
+    border-radius: 6px;
+    padding: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: rgba(245,240,232,0.85);
+    line-height: 1.9;
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+
+  .thread-diagram .comment { color: rgba(245,240,232,0.35); }
+  .thread-diagram .keyword { color: #f9c784; }
+  .thread-diagram .type { color: #87ceeb; }
+  .thread-diagram .string { color: #90ee90; }
+  .thread-diagram .fn { color: #ffb3ba; }
+
+  /* ===== DATABASE SECTION ===== */
+  .db-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .db-col {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+  }
+
+  .db-col-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .db-item {
+    font-size: 13px;
+    color: var(--ink2);
+    padding: 6px 0;
+    border-bottom: 1px dotted var(--border);
+    line-height: 1.5;
+  }
+
+  .db-item:last-child { border: none; }
+  .db-item strong { color: var(--ink); }
+
+  /* ===== PROJECT CARDS ===== */
+  .project-card {
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+
+  .project-header {
+    background: var(--ink);
+    color: #f5f0e8;
+    padding: 24px 28px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .project-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.45);
+    margin-bottom: 8px;
+  }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .project-subtitle {
+    font-size: 13px;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.6;
+    max-width: 540px;
+  }
+
+  .project-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid rgba(245,240,232,0.25);
+    border-radius: 2px;
+    color: rgba(245,240,232,0.7);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .project-body {
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .project-section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .project-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .project-bullet {
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 1.55;
+    display: flex;
+    gap: 10px;
+  }
+
+  .project-bullet::before {
+    content: '◆';
+    font-size: 7px;
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .project-bullet strong { color: var(--ink); font-weight: 600; }
+
+  .project-stack {
+    grid-column: 1 / -1;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .stack-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .stack-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--ink2);
+    background: var(--surface);
+  }
+
+  .stack-tag.highlight {
+    background: var(--ink);
+    color: #f5f0e8;
+    border-color: var(--ink);
+  }
+
+  /* ===== INTERVIEW MAP ===== */
+  .interview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .interview-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+  }
+
+  .interview-topic {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .interview-q {
+    font-size: 12px;
+    color: var(--muted2);
+    padding: 7px 0;
+    border-bottom: 1px dotted var(--border);
+    line-height: 1.5;
+  }
+
+  .interview-q:last-child { border: none; }
+  .interview-q strong { color: var(--ink2); font-weight: 500; }
+
+  /* ===== ANTI-PATTERNS ===== */
+  .anti-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .anti-item {
+    padding: 18px 22px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .anti-icon { font-size: 18px; flex-shrink: 0; }
+
+  .anti-label {
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 1.55;
+  }
+
+  .anti-label strong { color: var(--ink); display: block; margin-bottom: 3px; font-size: 13px; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    border-top: 2px solid var(--ink);
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-left {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .footer-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    background: var(--surface);
+    border-left: 3px solid var(--red);
+    padding: 16px 20px;
+    border-radius: 0 4px 4px 0;
+    margin: 20px 0;
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 1.7;
+  }
+
+  .callout strong { color: var(--ink); }
+
+  @media (max-width: 640px) {
+    header { grid-template-columns: 1fr; }
+    .header-meta { align-items: flex-start; }
+    .rt-grid, .db-comparison, .project-body, .anti-grid { grid-template-columns: 1fr; }
+    .project-body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div>
+      <div class="header-eyebrow">Backend Engineering · Language-Agnostic · Fresher+</div>
+      <h1>The Backend<br>Roadmap for<br><em>Engineers</em>, Not Tutorials</h1>
+      <p class="header-sub">A concept-first, framework-last guide to backend development — built around realtime systems, concurrency, and memory-aware thinking. The stuff that makes interviewers lean forward.</p>
+    </div>
+    <div class="header-meta">
+      <span class="meta-pill">Language Agnostic</span>
+      <span class="meta-pill">Realtime Focused</span>
+      <span class="meta-pill">Concurrency Depth</span>
+      <span class="meta-pill">2 Project Ideas</span>
+    </div>
+  </header>
+
+  <!-- PHILOSOPHY -->
+  <div class="philosophy">
+    <div class="philosophy-num">∅</div>
+    <div class="philosophy-content">
+      <h3>The Framework Trap — and How to Avoid It</h3>
+      <p>Most "backend roadmaps" are lists of tools: learn Express, learn Django, learn Spring. That's not engineering, that's configuration. <strong>Real backend skill is understanding why</strong> — why a thread pool outperforms spawning threads, why you choose a B-tree index over a hash index, why WebSockets need heartbeats, why Redis exists alongside PostgreSQL. This roadmap is built on concepts first. Pick <strong>any language you want</strong> — Go, Python, Java, C++, Rust — the concepts transfer. The tools are just vocabulary.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 1: NETWORKING & HTTP -->
+  <div class="chapter">
+    <div class="chapter-label">// Chapter 01</div>
+    <div class="chapter-title">Networking Fundamentals & HTTP Internals</div>
+
+    <div class="callout">
+      <strong>Fresher expectation:</strong> Know what HTTP is. <strong>Above expectation:</strong> Know what happens between your kernel's TCP stack and the moment your handler function is called — and why that matters for connection handling under load.
+    </div>
+
+    <div class="concepts-grid">
+      <div class="concept-card" data-num="1.1">
+        <div class="concept-accent" style="background:var(--teal)"></div>
+        <div class="concept-name">TCP/IP & the Socket API</div>
+        <div class="concept-desc">Understand what a socket actually is at the OS level — a file descriptor backed by a kernel buffer. The difference between listen(), accept(), and recv(). Why TCP's three-way handshake costs a round trip, and what keep-alive solves.</div>
+        <div class="concept-tags">
+          <span class="ctag">AF_INET</span><span class="ctag">SOCK_STREAM</span><span class="ctag">Nagle's algorithm</span><span class="ctag">TIME_WAIT</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-label">Depth</span>
+          <div class="depth-bar"><div class="depth-fill" style="width:80%;background:var(--teal)"></div></div>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="1.2">
+        <div class="concept-accent" style="background:var(--blue)"></div>
+        <div class="concept-name">HTTP/1.1 → HTTP/2 → HTTP/3</div>
+        <div class="concept-desc">Head-of-line blocking in HTTP/1.1. How HTTP/2 multiplexes streams over one TCP connection. HTTP/3's move to QUIC over UDP and what that solves. Know what a protocol upgrade header does and how WebSocket handshakes use it.</div>
+        <div class="concept-tags">
+          <span class="ctag">Multiplexing</span><span class="ctag">HPACK compression</span><span class="ctag">QUIC</span><span class="ctag">101 Switching</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-label">Depth</span>
+          <div class="depth-bar"><div class="depth-fill" style="width:70%;background:var(--blue)"></div></div>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="1.3">
+        <div class="concept-accent" style="background:var(--amber)"></div>
+        <div class="concept-name">Blocking vs Non-Blocking I/O</div>
+        <div class="concept-desc">The difference between a thread-per-connection model and an event loop model. What epoll/kqueue does. Why Go's goroutines and Rust's async/await both ultimately talk to the OS's I/O multiplexing primitives. The C10k problem is a great study lens.</div>
+        <div class="concept-tags">
+          <span class="ctag">epoll</span><span class="ctag">select()</span><span class="ctag">Event loop</span><span class="ctag">I/O multiplexing</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-label">Depth</span>
+          <div class="depth-bar"><div class="depth-fill" style="width:85%;background:var(--amber)"></div></div>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="1.4">
+        <div class="concept-accent" style="background:var(--red)"></div>
+        <div class="concept-name">REST Design & Status Code Literacy</div>
+        <div class="concept-desc">Resource naming, idempotency (GET/PUT vs POST), proper use of 4xx vs 5xx. Understand content negotiation, ETags for caching, and how to version APIs without breaking clients. Know when REST is the wrong choice.</div>
+        <div class="concept-tags">
+          <span class="ctag">Idempotency</span><span class="ctag">ETag</span><span class="ctag">HATEOAS</span><span class="ctag">Content-Type</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-label">Depth</span>
+          <div class="depth-bar"><div class="depth-fill" style="width:65%;background:var(--red)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: CONCURRENCY & MEMORY -->
+  <div class="chapter">
+    <div class="chapter-label">// Chapter 02</div>
+    <div class="chapter-title">Concurrency, Threads & Memory Model</div>
+
+    <div class="callout">
+      <strong>This is your differentiator.</strong> Most freshers can write a thread. Very few can reason about why two threads racing on the same cache line causes a 10× slowdown, or what "happens-before" means in a memory model. This depth is what separates you in senior-adjacent interviews.
+    </div>
+
+    <div class="thread-diagram">
+<span class="comment">// Thread pool pattern — the right mental model for concurrency</span>
+
+<span class="keyword">struct</span> <span class="type">ThreadPool</span> {
+  workers:  <span class="type">Vec</span>&lt;<span class="type">Thread</span>&gt;,           <span class="comment">// fixed number of OS threads</span>
+  queue:    <span class="type">BlockingQueue</span>&lt;<span class="type">Task</span>&gt;,   <span class="comment">// shared work queue</span>
+  mutex:    <span class="type">Mutex</span>,                  <span class="comment">// protects queue access</span>
+  cond_var: <span class="type">CondVar</span>,               <span class="comment">// workers sleep when no work</span>
+}
+
+<span class="comment">// When a task arrives:</span>
+<span class="comment">//  1. Acquire lock on queue  — only one thread at a time</span>
+<span class="comment">//  2. Push task              — O(1) enqueue</span>
+<span class="comment">//  3. Signal cond_var        — wake one sleeping worker</span>
+<span class="comment">//  4. Release lock</span>
+<span class="comment">//</span>
+<span class="comment">// Why NOT spawn a thread per request?</span>
+<span class="comment">//  — Thread creation: ~10µs, stack alloc: 8MB default each</span>
+<span class="comment">//  — Context switching cost grows O(n) with active threads</span>
+<span class="comment">//  — Pool keeps N threads alive, amortizes creation cost</span>
+    </div>
+
+    <div class="concepts-grid">
+      <div class="concept-card" data-num="2.1">
+        <div class="concept-accent" style="background:var(--red)"></div>
+        <div class="concept-name">Mutex, RWLock & Semaphores</div>
+        <div class="concept-desc">Know what a mutex does at the hardware level (compare-and-swap). When to prefer a read-write lock for read-heavy workloads. Semaphores for limiting resource count. Understand priority inversion and why it matters in systems.</div>
+        <div class="concept-tags">
+          <span class="ctag">CAS</span><span class="ctag">Spinlock</span><span class="ctag">Priority inversion</span><span class="ctag">Futex</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-label">Depth</span>
+          <div class="depth-bar"><div class="depth-fill" style="width:80%;background:var(--red)"></div></div>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="2.2">
+        <div class="concept-accent" style="background:var(--teal)"></div>
+        <div class="concept-name">Deadlock, Livelock & Race Conditions</div>
+        <div class="concept-desc">The four Coffman conditions for deadlock. How to detect, prevent, and avoid it. Race conditions vs data races. Writing a simple example of each — and explaining how you'd fix it — is a killer interview answer.</div>
+        <div class="concept-tags">
+          <span class="ctag">Coffman conditions</span><span class="ctag">Lock ordering</span><span class="ctag">TSAN</span><span class="ctag">Happens-before</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-label">Depth</span>
+          <div class="depth-bar"><div class="depth-fill" style="width:90%;background:var(--teal)"></div></div>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="2.3">
+        <div class="concept-accent" style="background:var(--purple)"></div>
+        <div class="concept-name">Memory Layout: Stack vs Heap</div>
+        <div class="concept-desc">Know exactly where function locals, heap objects, and thread stacks live. Stack overflow from deep recursion. Heap fragmentation from many small allocations. Why allocating inside a hot loop is expensive. False sharing across cache lines.</div>
+        <div class="concept-tags">
+          <span class="ctag">Cache line (64 bytes)</span><span class="ctag">False sharing</span><span class="ctag">malloc internals</span><span class="ctag">NUMA</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-label">Depth</span>
+          <div class="depth-bar"><div class="depth-fill" style="width:75%;background:var(--purple)"></div></div>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="2.4">
+        <div class="concept-accent" style="background:var(--amber)"></div>
+        <div class="concept-name">Thread Pool & Executor Patterns</div>
+        <div class="concept-desc">Fixed pool, cached pool, scheduled pool — and when to use each. Work-stealing queues (used by Java ForkJoinPool, Go's goroutine scheduler). How to size a pool: CPU-bound vs I/O-bound tasks require very different N.</div>
+        <div class="concept-tags">
+          <span class="ctag">Work stealing</span><span class="ctag">CPU-bound sizing</span><span class="ctag">I/O-bound sizing</span><span class="ctag">ForkJoin</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-label">Depth</span>
+          <div class="depth-bar"><div class="depth-fill" style="width:85%;background:var(--amber)"></div></div>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="2.5">
+        <div class="concept-accent" style="background:var(--blue)"></div>
+        <div class="concept-name">Lock-Free & Atomic Operations</div>
+        <div class="concept-desc">Atomic integers for counters and flags. CAS loops for lock-free queues. Memory ordering: seq_cst vs acquire/release semantics. Know why you'd reach for this (hot paths where mutex contention is measured) and when you wouldn't.</div>
+        <div class="concept-tags">
+          <span class="ctag">std::atomic</span><span class="ctag">Memory ordering</span><span class="ctag">ABA problem</span><span class="ctag">MPSC queue</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-label">Depth</span>
+          <div class="depth-bar"><div class="depth-fill" style="width:65%;background:var(--blue)"></div></div>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="2.6">
+        <div class="concept-accent" style="background:var(--green)"></div>
+        <div class="concept-name">Async I/O & Coroutines / Green Threads</div>
+        <div class="concept-desc">How async/await desugars into a state machine. Go's goroutines as M:N threading. Python's asyncio event loop. Why async isn't always faster — CPU-bound work on an event loop blocks everything. The right tool for the right problem.</div>
+        <div class="concept-tags">
+          <span class="ctag">M:N threading</span><span class="ctag">Coroutine</span><span class="ctag">Event loop starvation</span><span class="ctag">Tokio/asyncio</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-label">Depth</span>
+          <div class="depth-bar"><div class="depth-fill" style="width:72%;background:var(--green)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: REALTIME -->
+  <div class="chapter">
+    <div class="chapter-label">// Chapter 03</div>
+    <div class="chapter-title">Realtime Systems & Communication Protocols</div>
+
+    <div class="rt-grid">
+      <div class="rt-block">
+        <div class="rt-block-title"><span class="icon">⚡</span> WebSockets — Deep Internals</div>
+        <div class="rt-list">
+          <div class="rt-item">The <strong>RFC 6455 upgrade handshake</strong>: HTTP → WS involves a Sec-WebSocket-Key challenge that proves the server is WS-aware</div>
+          <div class="rt-item"><strong>Framing</strong>: messages are split into frames with opcode, masking bit, and payload length. Understand why client→server frames must be masked</div>
+          <div class="rt-item"><strong>Ping/Pong heartbeats</strong>: NAT routers and proxies silently drop idle TCP connections. Heartbeats keep them alive and detect dead clients</div>
+          <div class="rt-item"><strong>Backpressure</strong>: if a slow client can't consume messages fast enough, you need a bounded send buffer and a drop or pause strategy</div>
+          <div class="rt-item"><strong>Horizontal scaling problem</strong>: WS connections are stateful and sticky to one server — a pub/sub broker (Redis, NATS) is needed to fan out across nodes</div>
+        </div>
+      </div>
+
+      <div class="rt-block">
+        <div class="rt-block-title"><span class="icon">📡</span> SSE vs WebSockets vs Long Polling</div>
+        <div class="rt-list">
+          <div class="rt-item"><strong>Long Polling</strong>: client holds request open, server responds when data arrives. Easy, works everywhere, but expensive (new HTTP handshake each time)</div>
+          <div class="rt-item"><strong>Server-Sent Events (SSE)</strong>: one-way stream over plain HTTP. Auto-reconnects, works through HTTP/2 multiplexing. Ideal for dashboards, notifications</div>
+          <div class="rt-item"><strong>WebSockets</strong>: full-duplex, both sides send freely. Essential for collaborative tools, games, chat. More complex to scale</div>
+          <div class="rt-item"><strong>gRPC streaming</strong>: typed, bidirectional streams using HTTP/2. Better than WS for service-to-service realtime, especially with proto schema</div>
+        </div>
+      </div>
+
+      <div class="rt-block">
+        <div class="rt-block-title"><span class="icon">📬</span> Message Brokers & Pub/Sub</div>
+        <div class="rt-list">
+          <div class="rt-item"><strong>Why a broker?</strong> Decouples producers from consumers, handles back-pressure, enables fan-out to multiple subscribers at once</div>
+          <div class="rt-item"><strong>NATS</strong>: ultra-low latency (&lt;1ms), in-memory, fire-and-forget pub/sub. Ideal for ephemeral realtime messages</div>
+          <div class="rt-item"><strong>Redis Pub/Sub</strong>: simple, low-overhead, but no persistence. Subscriber misses messages if offline — no offset tracking</div>
+          <div class="rt-item"><strong>Kafka</strong>: durable, ordered, partitioned log. Messages persist for days. Consumer groups allow replaying. Use for audit trails, event sourcing</div>
+          <div class="rt-item"><strong>At-least-once vs exactly-once delivery</strong>: understand what each means and the cost (idempotent consumers required for exactly-once)</div>
+        </div>
+      </div>
+
+      <div class="rt-block">
+        <div class="rt-block-title"><span class="icon">🔄</span> Operational Transforms & CRDTs</div>
+        <div class="rt-list">
+          <div class="rt-item"><strong>OT (Operational Transforms)</strong>: technique used by Google Docs. Each edit is an operation that gets transformed against concurrent operations to preserve intent</div>
+          <div class="rt-item"><strong>CRDTs</strong>: Conflict-free Replicated Data Types — mathematically guaranteed to converge without a central coordinator. Used by Figma, Notion</div>
+          <div class="rt-item"><strong>Vector clocks</strong>: tracking causality in distributed systems. Allows nodes to determine if events are concurrent or ordered</div>
+          <div class="rt-item">Even understanding these <em>conceptually</em> as a fresher puts you in the top 5% — most engineers only learn this 3+ years in</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: DATABASES -->
+  <div class="chapter">
+    <div class="chapter-label">// Chapter 04</div>
+    <div class="chapter-title">Databases — Beyond CRUD</div>
+
+    <div class="db-comparison">
+      <div class="db-col">
+        <div class="db-col-title" style="color:var(--blue)">PostgreSQL / Relational</div>
+        <div class="db-item"><strong>MVCC</strong>: PostgreSQL uses Multi-Version Concurrency Control — readers don't block writers. Each transaction sees a consistent snapshot</div>
+        <div class="db-item"><strong>EXPLAIN ANALYZE</strong>: never optimize a query without looking at its plan. Seq scan vs index scan vs bitmap heap scan</div>
+        <div class="db-item"><strong>Index types</strong>: B-tree (default), Hash (equality only), GIN (full-text, JSONB), BRIN (sorted data like timestamps)</div>
+        <div class="db-item"><strong>N+1 problem</strong>: loading N children with N separate queries. Solved with JOINs or batch loading. ORM lazy loading is the usual culprit</div>
+        <div class="db-item"><strong>Transactions & isolation levels</strong>: Read Committed, Repeatable Read, Serializable. Know what phantom reads are and when to care</div>
+        <div class="db-item"><strong>Connection pooling</strong>: databases have a max_connections limit. PgBouncer sits in front to multiplex hundreds of app connections over few DB connections</div>
+      </div>
+      <div class="db-col">
+        <div class="db-col-title" style="color:var(--green)">Redis / Key-Value Store</div>
+        <div class="db-item"><strong>Data structures, not just strings</strong>: Lists (queues), Sets (unique membership), Sorted Sets (leaderboards, priority queues), Hashes (flat objects)</div>
+        <div class="db-item"><strong>TTL & eviction policies</strong>: LRU, LFU, volatile-lru. Understanding eviction is critical for using Redis as a cache correctly</div>
+        <div class="db-item"><strong>Transactions (MULTI/EXEC)</strong>: optimistic locking with WATCH. Not the same as RDBMS transactions — no rollback on logic errors</div>
+        <div class="db-item"><strong>Persistence modes</strong>: RDB snapshots vs AOF append-only file. Trade-offs between startup speed and durability guarantees</div>
+        <div class="db-item"><strong>Pub/Sub vs Streams</strong>: Pub/Sub is fire-and-forget. Redis Streams are a durable log with consumer groups — closer to a lightweight Kafka</div>
+        <div class="db-item"><strong>Lua scripting</strong>: atomic multi-key operations that can't be achieved with MULTI/EXEC. Common for rate limiters and distributed counters</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Database choice philosophy:</strong> PostgreSQL + Redis covers 90% of production use cases. PostgreSQL for your source of truth, Redis for caching, sessions, rate limiting, and ephemeral pub/sub. Only reach for something else when you can clearly articulate what PostgreSQL cannot do for your workload.
+    </div>
+  </div>
+
+  <!-- SECTION 5: AUTH & SECURITY -->
+  <div class="chapter">
+    <div class="chapter-label">// Chapter 05</div>
+    <div class="chapter-title">Auth, Security & Trust Boundaries</div>
+
+    <div class="concepts-grid">
+      <div class="concept-card" data-num="5.1">
+        <div class="concept-accent" style="background:var(--red)"></div>
+        <div class="concept-name">JWT vs Sessions — the Real Trade-off</div>
+        <div class="concept-desc">JWTs are stateless — the server doesn't store anything. But you can't revoke them without a blocklist (which re-introduces statefulness). Session tokens are stateful but instantly revocable. Know which to choose and why.</div>
+        <div class="concept-tags">
+          <span class="ctag">HS256 / RS256</span><span class="ctag">Token rotation</span><span class="ctag">Refresh tokens</span><span class="ctag">Revocation</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="5.2">
+        <div class="concept-accent" style="background:var(--amber)"></div>
+        <div class="concept-name">Password Hashing & Secrets Management</div>
+        <div class="concept-desc">bcrypt, Argon2id — why you never use MD5/SHA for passwords. Work factor / cost parameters. Understand how rainbow table attacks work and why salting defeats them. Secrets in env vars, not in source code — and vault systems.</div>
+        <div class="concept-tags">
+          <span class="ctag">Argon2id</span><span class="ctag">Work factor</span><span class="ctag">Salt</span><span class="ctag">Secret manager</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="5.3">
+        <div class="concept-accent" style="background:var(--blue)"></div>
+        <div class="concept-name">OWASP Top 10 — Applied</div>
+        <div class="concept-desc">SQL injection via parameterized queries. XSS via output encoding and CSP headers. CSRF via SameSite cookies and CSRF tokens. IDOR — broken object-level authorization is the #1 API vulnerability. These need hands-on practice, not just memorization.</div>
+        <div class="concept-tags">
+          <span class="ctag">Parameterized queries</span><span class="ctag">CSP</span><span class="ctag">SameSite</span><span class="ctag">IDOR</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="5.4">
+        <div class="concept-accent" style="background:var(--teal)"></div>
+        <div class="concept-name">Rate Limiting & Throttling</div>
+        <div class="concept-desc">Token bucket vs leaky bucket vs fixed window vs sliding window log. Token bucket is most common in production. Implementing a distributed rate limiter with Redis Lua scripts. Why per-IP limiting alone isn't enough against distributed abuse.</div>
+        <div class="concept-tags">
+          <span class="ctag">Token bucket</span><span class="ctag">Sliding window</span><span class="ctag">Distributed limiter</span><span class="ctag">429 Too Many</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: SYSTEM DESIGN BASICS -->
+  <div class="chapter">
+    <div class="chapter-label">// Chapter 06</div>
+    <div class="chapter-title">System Design Vocabulary for Freshers</div>
+
+    <div class="rt-grid">
+      <div class="rt-block">
+        <div class="rt-block-title"><span class="icon">📐</span> What They Actually Ask Freshers</div>
+        <div class="rt-list">
+          <div class="rt-item"><strong>URL shortener design</strong>: hashing strategy, redirect storage, analytics tracking, scalability</div>
+          <div class="rt-item"><strong>Rate limiter design</strong>: algorithm choice, Redis-based distributed implementation</div>
+          <div class="rt-item"><strong>Notification system</strong>: push vs pull, fan-out write vs fan-out read, multi-channel delivery</div>
+          <div class="rt-item"><strong>Paste / file upload service</strong>: storage separation (metadata in DB, blobs in object store), CDN integration</div>
+          <div class="rt-item">You don't need to design Twitter. You need to <strong>reason clearly</strong> about trade-offs at a smaller scale</div>
+        </div>
+      </div>
+
+      <div class="rt-block">
+        <div class="rt-block-title"><span class="icon">⚖️</span> Trade-off Vocabulary</div>
+        <div class="rt-list">
+          <div class="rt-item"><strong>CAP Theorem</strong>: in a network partition, you can't have both consistency and availability. Know what each means practically</div>
+          <div class="rt-item"><strong>Read vs write optimization</strong>: denormalization, caching, read replicas serve reads; write-ahead logs and queues buffer writes</div>
+          <div class="rt-item"><strong>Vertical vs horizontal scaling</strong>: know when each applies and what makes horizontal hard (stateful services)</div>
+          <div class="rt-item"><strong>Synchronous vs async processing</strong>: what belongs in the request path vs a background worker queue</div>
+          <div class="rt-item"><strong>Latency vs throughput</strong>: batching increases throughput but raises latency. Know when each matters to the user</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="chapter">
+    <div class="chapter-label">// Chapter 07</div>
+    <div class="chapter-title">2 Project Ideas That Actually Impress</div>
+
+    <div class="callout">
+      These projects are deliberately non-generic. They demonstrate <strong>specific technical depth</strong> — not just "I used framework X to build CRUD." Each one gives you 4–5 talking points in an interview that most freshers simply cannot match.
+    </div>
+
+    <!-- PROJECT 1 -->
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-num">Project 01 · Realtime Systems</div>
+          <div class="project-title">Collaborative Code Execution Engine</div>
+          <div class="project-subtitle">A multi-user live coding environment where users share a session, see each other's cursors and edits in real time, and can execute code server-side — with output streamed back character-by-character.</div>
+        </div>
+        <span class="project-badge">Realtime · Concurrency · Safety</span>
+      </div>
+      <div class="project-body">
+        <div>
+          <div class="project-section-title">// Core Technical Features</div>
+          <div class="project-bullets">
+            <div class="project-bullet"><strong>WebSocket session management</strong> with rooms — multiple users connect to a shared document session, each identified by a UUID. Server broadcasts diffs, not full document state.</div>
+            <div class="project-bullet"><strong>CRDT-based text sync</strong> (or a simplified OT implementation) — when two users type simultaneously, edits converge correctly without a central lock. Implement this yourself, even naively, to understand the problem.</div>
+            <div class="project-bullet"><strong>Sandboxed code execution</strong> — user code runs in an isolated subprocess with resource limits: CPU time cap (RLIMIT_CPU), memory cap (RLIMIT_AS), no network access (seccomp or Docker-based). Never let user code touch your host filesystem.</div>
+            <div class="project-bullet"><strong>Streamed output via SSE or WS</strong> — stdout/stderr from the child process pipes back to the WebSocket connection character-by-character. Shows understanding of Unix pipes and non-blocking reads.</div>
+          </div>
+        </div>
+        <div>
+          <div class="project-section-title">// What This Demonstrates</div>
+          <div class="project-bullets">
+            <div class="project-bullet"><strong>Thread safety</strong>: each execution runs in its own goroutine/thread with proper cancellation (context cancellation, interrupt signal to child process)</div>
+            <div class="project-bullet"><strong>Resource management</strong>: you've thought about what happens when 20 users run infinite loops simultaneously — your design doesn't let the server die</div>
+            <div class="project-bullet"><strong>WebSocket lifecycle</strong>: handling reconnections, clean close handshakes, heartbeats, and what happens when a user drops mid-execution</div>
+            <div class="project-bullet"><strong>Security surface awareness</strong>: code injection, resource exhaustion, process escape — you know the attack surface and have mitigations</div>
+            <div class="project-bullet"><strong>Talking point depth</strong>: "I had to serialize access to the document state across concurrent connections using a channel / mutex, and stream subprocess output without blocking the event loop"</div>
+          </div>
+        </div>
+        <div class="project-stack">
+          <div class="project-section-title">// Language & Stack Suggestions (pick one path)</div>
+          <div class="stack-tags">
+            <span class="stack-tag highlight">Go (recommended)</span>
+            <span class="stack-tag">goroutines + channels</span>
+            <span class="stack-tag">gorilla/websocket</span>
+            <span class="stack-tag">os/exec subprocess</span>
+            <span class="stack-tag highlight">— OR —</span>
+            <span class="stack-tag highlight">Java</span>
+            <span class="stack-tag">Virtual threads (JDK 21)</span>
+            <span class="stack-tag">Netty or JDK HttpServer</span>
+            <span class="stack-tag">ProcessBuilder</span>
+            <span class="stack-tag highlight">— OR —</span>
+            <span class="stack-tag highlight">Python</span>
+            <span class="stack-tag">asyncio + websockets lib</span>
+            <span class="stack-tag">asyncio.subprocess</span>
+            <span class="stack-tag">PostgreSQL (session persistence)</span>
+            <span class="stack-tag">Redis (active sessions)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-num">Project 02 · Multithreading & Memory</div>
+          <div class="project-title">High-Throughput In-Memory Task Queue</div>
+          <div class="project-subtitle">A custom, self-contained job queue server — built from scratch without using any queue library — that accepts tasks over HTTP, dispatches them to a configurable worker pool, and exposes realtime job status over WebSockets.</div>
+        </div>
+        <span class="project-badge">Systems · Thread Pool · Lock-Free</span>
+      </div>
+      <div class="project-body">
+        <div>
+          <div class="project-section-title">// Core Technical Features</div>
+          <div class="project-bullets">
+            <div class="project-bullet"><strong>Custom thread pool implementation</strong> — don't use an executor from the standard library. Implement the worker threads, the shared blocking queue with mutex + condition variable, and graceful shutdown yourself.</div>
+            <div class="project-bullet"><strong>Priority queue variant</strong> — extend the basic FIFO queue to support priority levels. Jobs with higher priority preempt queued lower-priority jobs. Use a heap-based structure protected by a single lock.</div>
+            <div class="project-bullet"><strong>Atomic job state machine</strong> — job state (QUEUED → RUNNING → DONE/FAILED) transitions must be atomic. Use atomic integers or lock-free CAS to update state visible to the status endpoint without a mutex.</div>
+            <div class="project-bullet"><strong>Backpressure handling</strong> — if the queue is full, the HTTP endpoint returns 429 rather than unboundedly growing. The queue capacity is configurable at startup and enforced under lock.</div>
+          </div>
+        </div>
+        <div>
+          <div class="project-section-title">// What This Demonstrates</div>
+          <div class="project-bullets">
+            <div class="project-bullet"><strong>Raw concurrency understanding</strong>: you implemented a thread pool from first principles — mutex, condition variable, bounded queue. This is the kind of thing that triggers "tell me more" from every senior engineer</div>
+            <div class="project-bullet"><strong>Memory-aware design</strong>: you can speak to the stack size of each worker thread, why you bounded the queue, and what happens to memory under a surge of requests</div>
+            <div class="project-bullet"><strong>Observable systems</strong>: the WebSocket endpoint streams live job status changes — queue depth, worker utilization, last N completed jobs — showing you think about operational visibility</div>
+            <div class="project-bullet"><strong>Benchmarking</strong>: you load-tested it yourself (wrk, hey, or ab) and can tell an interviewer your queue's sustained throughput and P99 latency under load</div>
+            <div class="project-bullet"><strong>Graceful shutdown</strong>: on SIGTERM, no new jobs accepted, in-flight jobs finish, queue drains or persists to disk — shows production thinking</div>
+          </div>
+        </div>
+        <div class="project-stack">
+          <div class="project-section-title">// Language & Stack Suggestions</div>
+          <div class="stack-tags">
+            <span class="stack-tag highlight">C++ (maximum impact)</span>
+            <span class="stack-tag">std::thread + std::mutex</span>
+            <span class="stack-tag">std::condition_variable</span>
+            <span class="stack-tag">std::atomic</span>
+            <span class="stack-tag highlight">— OR —</span>
+            <span class="stack-tag highlight">Java</span>
+            <span class="stack-tag">ReentrantLock + Condition</span>
+            <span class="stack-tag">AtomicInteger state machine</span>
+            <span class="stack-tag">Raw HttpServer (JDK)</span>
+            <span class="stack-tag highlight">— OR —</span>
+            <span class="stack-tag highlight">Go</span>
+            <span class="stack-tag">Channels as queue primitive</span>
+            <span class="stack-tag">sync.Mutex + WaitGroup</span>
+            <span class="stack-tag">pprof heap profiling</span>
+            <span class="stack-tag">PostgreSQL (optional: job persistence)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERVIEW QUESTION MAP -->
+  <div class="chapter">
+    <div class="chapter-label">// Chapter 08</div>
+    <div class="chapter-title">Interview Question Map — What They'll Actually Ask</div>
+
+    <div class="interview-grid">
+      <div class="interview-card">
+        <div class="interview-topic">⚙️ Concurrency</div>
+        <div class="interview-q"><strong>Q:</strong> What's the difference between a process and a thread? What's cheaper?</div>
+        <div class="interview-q"><strong>Q:</strong> How would you detect and fix a deadlock in a live system?</div>
+        <div class="interview-q"><strong>Q:</strong> Why is spawning a thread per HTTP request a bad idea at scale?</div>
+        <div class="interview-q"><strong>Q:</strong> Explain what a race condition is with an example from your own code</div>
+      </div>
+      <div class="interview-card">
+        <div class="interview-topic">🔌 Networking</div>
+        <div class="interview-q"><strong>Q:</strong> What happens between typing a URL and receiving an HTTP response?</div>
+        <div class="interview-q"><strong>Q:</strong> How does a WebSocket connection differ from a normal HTTP request?</div>
+        <div class="interview-q"><strong>Q:</strong> What is the difference between TCP and UDP, and when would you use UDP?</div>
+        <div class="interview-q"><strong>Q:</strong> How does HTTPS work? What does TLS actually protect against?</div>
+      </div>
+      <div class="interview-card">
+        <div class="interview-topic">🗄️ Databases</div>
+        <div class="interview-q"><strong>Q:</strong> What is an index and how does a B-tree index work?</div>
+        <div class="interview-q"><strong>Q:</strong> Explain ACID. Which property is hardest to guarantee in a distributed system?</div>
+        <div class="interview-q"><strong>Q:</strong> What is the N+1 query problem? How would you fix it?</div>
+        <div class="interview-q"><strong>Q:</strong> When would you choose to cache something vs hit the database every time?</div>
+      </div>
+      <div class="interview-card">
+        <div class="interview-topic">🔐 Security & Auth</div>
+        <div class="interview-q"><strong>Q:</strong> What's wrong with storing passwords as SHA-256 hashes?</div>
+        <div class="interview-q"><strong>Q:</strong> Explain the difference between authentication and authorization</div>
+        <div class="interview-q"><strong>Q:</strong> How would you implement API rate limiting to prevent abuse?</div>
+        <div class="interview-q"><strong>Q:</strong> What is an IDOR vulnerability? Give an example</div>
+      </div>
+      <div class="interview-card">
+        <div class="interview-topic">🏗️ System Design</div>
+        <div class="interview-q"><strong>Q:</strong> Design a URL shortener — walk me through the key components</div>
+        <div class="interview-q"><strong>Q:</strong> How would you handle 10,000 concurrent WebSocket connections on one server?</div>
+        <div class="interview-q"><strong>Q:</strong> What's the difference between a message queue and pub/sub? When use each?</div>
+        <div class="interview-q"><strong>Q:</strong> How would you make your backend horizontally scalable?</div>
+      </div>
+      <div class="interview-card">
+        <div class="interview-topic">📦 Project Deep-Dive</div>
+        <div class="interview-q"><strong>Q:</strong> Tell me about a technical challenge you faced in your project and how you solved it</div>
+        <div class="interview-q"><strong>Q:</strong> What would break first in your project under 10× the expected load?</div>
+        <div class="interview-q"><strong>Q:</strong> How did you test your concurrent code? Did you find any race conditions?</div>
+        <div class="interview-q"><strong>Q:</strong> What would you build next if you had another two weeks on this project?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANTI-PATTERNS -->
+  <div class="chapter">
+    <div class="chapter-label">// Chapter 09</div>
+    <div class="chapter-title">Anti-Patterns to Avoid in Your Projects & Interviews</div>
+
+    <div class="anti-grid">
+      <div class="anti-item">
+        <span class="anti-icon">🚫</span>
+        <div class="anti-label">
+          <strong>Framework-first thinking</strong>
+          Saying "I used Django/Spring so I didn't have to worry about X" is a red flag. Know what your framework does for you — and what it doesn't.
+        </div>
+      </div>
+      <div class="anti-item">
+        <span class="anti-icon">🚫</span>
+        <div class="anti-label">
+          <strong>Spawning threads in request handlers</strong>
+          Every time you create a new Thread() inside a request, you're paying stack allocation cost per request. Use a pool — always.
+        </div>
+      </div>
+      <div class="anti-item">
+        <span class="anti-icon">🚫</span>
+        <div class="anti-label">
+          <strong>Storing secrets in source code</strong>
+          API keys, DB passwords, JWT secrets — none of these belong in git. Even in a personal project, use .env files and .gitignore them.
+        </div>
+      </div>
+      <div class="anti-item">
+        <span class="anti-icon">🚫</span>
+        <div class="anti-label">
+          <strong>No connection pooling</strong>
+          Opening a new database connection per HTTP request is O(100ms) overhead per call. Always configure a connection pool, even in personal projects.
+        </div>
+      </div>
+      <div class="anti-item">
+        <span class="anti-icon">🚫</span>
+        <div class="anti-label">
+          <strong>SELECT * in production queries</strong>
+          Fetching all columns when you need two is wasteful. More importantly, it breaks when you add columns. Always name your columns.
+        </div>
+      </div>
+      <div class="anti-item">
+        <span class="anti-icon">🚫</span>
+        <div class="anti-label">
+          <strong>Ignoring error paths in concurrent code</strong>
+          The success path is easy. What happens when a thread panics? When a socket drops mid-write? When a DB connection times out? Handle it.
+        </div>
+      </div>
+      <div class="anti-item">
+        <span class="anti-icon">🚫</span>
+        <div class="anti-label">
+          <strong>Conflating async with parallel</strong>
+          Async is about waiting efficiently. Parallelism is about doing work simultaneously. An async event loop on one thread is NOT parallel execution.
+        </div>
+      </div>
+      <div class="anti-item">
+        <span class="anti-icon">🚫</span>
+        <div class="anti-label">
+          <strong>Optimizing before profiling</strong>
+          "I used a cache because it's faster" is not an answer. Profile first, identify the actual bottleneck, then optimize. Guessing is engineering malpractice.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-left">"Build fewer things, understand them completely."</div>
+    <div class="footer-right">Backend Engineering Roadmap · Language-Agnostic · 2025–26</div>
+  </footer>
+
+</div>
+</body>
+</html>
